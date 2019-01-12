@@ -1,5 +1,10 @@
 import { head } from 'ramda';
 
+const normalizeAsset = ({ video_asset: { aws_original: url, still_image: poster } }) => ({
+  url,
+  poster,
+});
+
 const normalizeVideos = videoList =>
   videoList.map(currentVideo => ({
     description: currentVideo.description,
@@ -10,8 +15,7 @@ const normalizeVideos = videoList =>
       email: currentVideo.created_by_editorial_user.email,
       name: currentVideo.created_by_editorial_user.name,
     },
-    video: head(currentVideo.associated_video_assets).video_asset.aws_original,
-    poster: head(currentVideo.associated_video_assets).video_asset.still_image,
+    asset: normalizeAsset(head(currentVideo.associated_video_assets)),
   }));
 
 export default normalizeVideos;

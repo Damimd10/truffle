@@ -6,6 +6,8 @@ import 'video-react/dist/video-react.css';
 import { getVideos } from '../../services';
 
 const Container = styled.section`
+  @import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+  font-family: 'Lato', sans-serif;
   background-color: #f9f9f9;
   padding: 0.5rem;
   display: flex;
@@ -53,7 +55,7 @@ export default class Home extends React.Component {
       return (
         <Container>
           <VideoContainer>
-            <Player playsInline poster={video.poster} src={video.video} />
+            <Player playsInline poster={video.asset.poster} src={video.asset.url} />
           </VideoContainer>
           <Footer>
             <div>
