@@ -12,25 +12,34 @@ const Container = styled.section`
 `;
 
 export default class Home extends React.Component {
+  state = { videos: [] };
+
   async componentDidMount() {
-    await getVideos();
+    const videos = await getVideos();
+    this.setState({ videos });
   }
 
   render() {
-    return (
-      <Container>
-        <div>video</div>
-        <div>
+    console.log('HERE', this.state.videos);
+    const video = this.state.videos[0];
+    if (video) {
+      return (
+        <Container>
+          <div>video</div>
           <div>
-            <h1>title</h1>
-            <p>description</p>
+            <div>
+              <h1>{video.title}</h1>
+              <p>{video.description}</p>
+            </div>
+            <div>
+              <h4>Prev Video</h4>
+              <h4>Next Video</h4>
+            </div>
           </div>
-          <div>
-            <h4>Prev Video</h4>
-            <h4>Next Video</h4>
-          </div>
-        </div>
-      </Container>
-    );
+        </Container>
+      );
+    }
+
+    return null;
   }
 }
