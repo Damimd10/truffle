@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Player } from 'video-react';
+import 'video-react/dist/video-react.css';
 
 import { getVideos } from '../../services';
 
@@ -9,6 +11,10 @@ const Container = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const VideoContainer = styled.section`
+  width: 600px;
 `;
 
 export default class Home extends React.Component {
@@ -25,7 +31,9 @@ export default class Home extends React.Component {
     if (video) {
       return (
         <Container>
-          <div>video</div>
+          <VideoContainer>
+            <Player playsInline poster={video.poster} src={video.video} />
+          </VideoContainer>
           <div>
             <div>
               <h1>{video.title}</h1>
