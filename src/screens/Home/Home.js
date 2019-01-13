@@ -1,5 +1,5 @@
 import React from 'react';
-import { pathOr } from 'ramda';
+import { head, pathOr } from 'ramda';
 import { Route, withRouter } from 'react-router-dom';
 import 'video-react/dist/video-react.css';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -44,6 +44,8 @@ class Home extends React.Component {
   async componentDidMount() {
     const videos = await getVideos();
     this.setState({ videos });
+
+    if (!this.props.match.params.id) this.props.history.push(`/${head(videos).url}`);
   }
 
   getVideoByUrl = url => {
