@@ -1,4 +1,5 @@
 import React from 'react';
+import { equals, gt, length } from 'ramda';
 import styled from 'styled-components';
 import { Player } from 'video-react';
 import 'video-react/dist/video-react.css';
@@ -46,8 +47,15 @@ const Button = styled.button`
   border-radius: 5px;
   height: 25px;
   padding: 0 20px;
+  &:hover {
+    cursor: pointer;
+  }
   &:focus {
     outline: none;
+  }
+  &:disabled {
+    cursor: default;
+    background-color: #797e80;
   }
 `;
 
@@ -65,16 +73,25 @@ const VideoDetails = styled.section`
 `;
 
 export default class Home extends React.Component {
-  state = { videos: [] };
+  state = { currentVideo: 0, videos: [] };
 
   async componentDidMount() {
     const videos = await getVideos();
     this.setState({ videos });
   }
 
+  nextVideo = () => this.setState(prevState => ({ currentVideo: prevState.currentVideo + 1 }));
+
+  prevVideo = () => this.setState(prevState => ({ currentVideo: prevState.currentVideo - 1 }));
+
+  prevIsDisabled = () => !gt(this.state.currentVideo, 0);
+
+  nextIsDisabled = () => equals(this.state.currentVideo + 1, length(this.state.videos));
+
   render() {
-    console.log('HERE', this.state.videos);
-    const video = this.state.videos[0];
+    const { currentVideo, videos } = this.state;
+    const video = videos[currentVideo];
+
     if (video) {
       return (
         <Container>
@@ -87,8 +104,12 @@ export default class Home extends React.Component {
               <VideoDescription>{video.description}</VideoDescription>
             </VideoDetails>
             <NavigationControl>
-              <Button type="button">Prev Video</Button>
-              <Button type="button">Next Video</Button>
+              <Button type="button" onClick={this.prevVideo} disabled={this.prevIsDisabled()}>
+                Prev Video
+              </Button>
+              <Button type="button" onClick={this.nextVideo} disabled={this.nextIsDisabled()}>
+                Next Video
+              </Button>
             </NavigationControl>
           </Footer>
         </Container>
