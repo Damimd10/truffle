@@ -37,7 +37,31 @@ const Footer = styled.footer`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0.2rem;
+  margin: 1rem 0.5rem;
+`;
+
+const Button = styled.button`
+  background-color: #30393c;
+  color: #fff;
+  border-radius: 5px;
+  height: 25px;
+  padding: 0 20px;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const NavigationControl = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 400px;
+`;
+
+const VideoDetails = styled.section`
+  flex-basis: ;
 `;
 
 export default class Home extends React.Component {
@@ -58,14 +82,14 @@ export default class Home extends React.Component {
             <Player playsInline poster={video.asset.poster} src={video.asset.url} />
           </VideoContainer>
           <Footer>
-            <div>
+            <VideoDetails>
               <VideoTitle>{video.title}</VideoTitle>
               <VideoDescription>{video.description}</VideoDescription>
-            </div>
-            <div>
-              <h4>Prev Video</h4>
-              <h4>Next Video</h4>
-            </div>
+            </VideoDetails>
+            <NavigationControl>
+              <Button type="button">Prev Video</Button>
+              <Button type="button">Next Video</Button>
+            </NavigationControl>
           </Footer>
         </Container>
       );
