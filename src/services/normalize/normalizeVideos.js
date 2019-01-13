@@ -10,6 +10,7 @@ const normalizeVideos = videoList =>
     description: currentVideo.description,
     title: currentVideo.title,
     publishDate: currentVideo.publish_date,
+    url: currentVideo.slug,
     publisher: {
       avatar: currentVideo.created_by_editorial_user.avatar_url,
       email: currentVideo.created_by_editorial_user.email,

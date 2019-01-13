@@ -1,121 +1,86 @@
 import React from 'react';
-import { equals, gt, length } from 'ramda';
-import styled from 'styled-components';
-import { Player } from 'video-react';
+import { pathOr } from 'ramda';
+import { Route, withRouter } from 'react-router-dom';
 import 'video-react/dist/video-react.css';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import styled from 'styled-components';
 
 import { getVideos } from '../../services';
 
-const Container = styled.section`
-  @import url('https://fonts.googleapis.com/css?family=Lato:400,700');
-  font-family: 'Lato', sans-serif;
-  background-color: #f9f9f9;
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 700px;
-  margin: 0 auto;
-`;
+import Video from './components/Video';
 
-const VideoTitle = styled.span`
-  color: #2a3438;
-  font-weight: bold;
-  font-size: 1.3rem;
-`;
-
-const VideoDescription = styled.p`
-  color: #84898b;
-  font-size: 0.8rem;
-`;
-
-const VideoContainer = styled.section`
-  width: 700px;
-`;
-
-const Footer = styled.footer`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem 0.5rem;
-`;
-
-const Button = styled.button`
-  background-color: #30393c;
-  color: #fff;
-  border-radius: 5px;
-  height: 25px;
-  padding: 0 20px;
-  &:hover {
-    cursor: pointer;
+const Wrapper = styled.div`
+  .fade-enter {
+    opacity: 0.01;
   }
-  &:focus {
-    outline: none;
+
+  .fade-enter.fade-enter-active {
+    opacity: 1;
   }
-  &:disabled {
-    cursor: default;
-    background-color: #797e80;
+
+  .fade-exit {
+    opacity: 1;
+  }
+
+  .fade-exit.fade-exit-active {
+    opacity: 0.01;
+  }
+
+  div.transition-group {
+    position: relative;
+  }
+
+  section.route-section {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
   }
 `;
 
-const NavigationControl = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0.5rem;
-  justify-content: center;
-  align-items: center;
-  flex-basis: 400px;
-`;
-
-const VideoDetails = styled.section`
-  flex-basis: ;
-`;
-
-export default class Home extends React.Component {
-  state = { currentVideo: 0, videos: [] };
+class Home extends React.Component {
+  state = { videos: [] };
 
   async componentDidMount() {
     const videos = await getVideos();
     this.setState({ videos });
   }
 
-  nextVideo = () => this.setState(prevState => ({ currentVideo: prevState.currentVideo + 1 }));
+  getVideoByUrl = url => {
+    const { videos } = this.state;
+    const index = videos.findIndex(video => video.url === url) || 0;
 
-  prevVideo = () => this.setState(prevState => ({ currentVideo: prevState.currentVideo - 1 }));
-
-  prevIsDisabled = () => !gt(this.state.currentVideo, 0);
-
-  nextIsDisabled = () => equals(this.state.currentVideo + 1, length(this.state.videos));
+    return {
+      data: videos[index],
+      prevVideoUrl: pathOr('', [index - 1, 'url'], videos),
+      nextVideoUrl: pathOr('', [index + 1, 'url'], videos),
+    };
+  };
 
   render() {
-    const { currentVideo, videos } = this.state;
-    const video = videos[currentVideo];
-
-    if (video) {
-      return (
-        <Container>
-          <VideoContainer>
-            <Player playsInline poster={video.asset.poster} src={video.asset.url} />
-          </VideoContainer>
-          <Footer>
-            <VideoDetails>
-              <VideoTitle>{video.title}</VideoTitle>
-              <VideoDescription>{video.description}</VideoDescription>
-            </VideoDetails>
-            <NavigationControl>
-              <Button type="button" onClick={this.prevVideo} disabled={this.prevIsDisabled()}>
-                Prev Video
-              </Button>
-              <Button type="button" onClick={this.nextVideo} disabled={this.nextIsDisabled()}>
-                Next Video
-              </Button>
-            </NavigationControl>
-          </Footer>
-        </Container>
-      );
-    }
-
-    return null;
+    return (
+      <Wrapper>
+        <TransitionGroup className="transition-group">
+          <CSSTransition
+            key={this.props.location.key}
+            timeout={{ enter: 3000, exit: 300 }}
+            classNames="fade"
+          >
+            <section className="route-section">
+              <Route
+                path="/:id"
+                render={props => {
+                  const url = props.match.params.id;
+                  const video = this.getVideoByUrl(url);
+                  return <Video {...props} video={video} />;
+                }}
+              />
+            </section>
+          </CSSTransition>
+        </TransitionGroup>
+      </Wrapper>
+    );
   }
 }
+
+export default withRouter(Home);
