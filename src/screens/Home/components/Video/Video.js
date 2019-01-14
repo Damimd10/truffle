@@ -4,11 +4,12 @@ import { Player } from 'video-react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Fade from 'react-reveal/Fade';
+import HashLoader from 'react-spinners/HashLoader';
 
 const Container = styled.section`
   @import url('https://fonts.googleapis.com/css?family=Lato:400,700');
   font-family: 'Lato', sans-serif;
-  background-color: #f9f9f9;
+  background-color: ${props => (props.background === 'transparent' ? 'none' : '#f9f9f9')};
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -72,7 +73,12 @@ const VideoDetails = styled.section`
 `;
 
 const Video = ({ video }) => {
-  if (!video || !video.data) return null;
+  if (!video || !video.data)
+    return (
+      <Container background="transparent">
+        <HashLoader sizeUnit="px" size={150} color="#4b5960" loading />
+      </Container>
+    );
 
   return (
     <Fade duration={3000}>
