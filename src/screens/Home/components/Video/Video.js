@@ -84,7 +84,14 @@ const Video = ({ video }) => {
     <Fade duration={3000}>
       <Container>
         <VideoContainer>
-          <Player playsInline poster={video.data.asset.poster} src={video.data.asset.url} />
+          <Player
+            fluid={false}
+            playsInline
+            width={700}
+            height={350}
+            poster={video.data.asset.poster}
+            src={video.data.asset.url}
+          />
         </VideoContainer>
         <Footer>
           <VideoDetails>
