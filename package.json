@@ -6,6 +6,7 @@
     "axios": "^0.18.0",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.7.1",
+    "jest-styled-components": "^6.3.1",
     "ramda": "^0.26.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
@@ -34,6 +35,9 @@
     ],
     "coverageReporters": [
       "lcov"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
     ]
   },
   "lint-staged": {
@@ -53,6 +57,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "enzyme-to-json": "^3.3.5",
     "eslint": "^5.12.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.3.0",

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Service Error Component should display a render of styled component container 1`] = `
+<styled.div>
+  Some message
+</styled.div>
+`;
