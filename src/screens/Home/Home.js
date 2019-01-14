@@ -4,10 +4,12 @@ import { Route, withRouter } from 'react-router-dom';
 import 'video-react/dist/video-react.css';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
+import HashLoader from 'react-spinners/HashLoader';
 
 import { getVideos } from '../../services';
 
 import Video from './components/Video';
+import ServiceError from '../../shared/components/ServiceError';
 
 const Wrapper = styled.div`
   .fade-enter {
@@ -38,14 +40,25 @@ const Wrapper = styled.div`
   }
 `;
 
+const LoadingContainer = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export class Home extends React.Component {
-  state = { videos: [] };
+  state = { error: null, loading: false, videos: [] };
 
   async componentDidMount() {
+    this.setState({ loading: true });
     const videos = await getVideos();
-    this.setState({ videos });
+    this.setState({ videos, error: null, loading: false });
 
-    if (!this.props.match.params.id) this.props.history.push(`/${head(videos).url}`);
+    if (videos.error) this.setState({ error: videos.error });
+
+    if (!videos.error && !this.props.match.params.id && videos)
+      this.props.history.push(`/${head(videos).url}`);
   }
 
   getVideoByUrl = url => {
@@ -60,6 +73,17 @@ export class Home extends React.Component {
   };
 
   render() {
+    const { error, loading } = this.state;
+
+    if (!loading)
+      return (
+        <LoadingContainer>
+          <HashLoader sizeUnit="px" size={150} color="#4b5960" loading />
+        </LoadingContainer>
+      );
+
+    if (error) return <ServiceError message={error} />;
+
     return (
       <Wrapper>
         <TransitionGroup className="transition-group">
