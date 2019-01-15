@@ -5,4 +5,6 @@ const VideoDescription = styled.p`
   font-size: 0.8rem;
 `;
 
+VideoDescription.displayName = 'VideoDescription';
+
 export default VideoDescription;

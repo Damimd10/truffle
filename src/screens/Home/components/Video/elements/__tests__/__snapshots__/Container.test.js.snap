@@ -8,32 +8,29 @@ exports[`Button Style Element should create a style structure for the component 
       "attrs": Array [],
       "componentStyle": ComponentStyle {
         "componentId": "sc-bdVaJa",
-        "isStatic": true,
+        "isStatic": false,
         "rules": Array [
           "
-  background-color: #30393c;
-  color: #fff;
-  border-radius: 5px;
-  height: 25px;
-  padding: 0 20px;
-  &:hover {
-    cursor: pointer;
-  }
-  &:focus {
-    outline: none;
-  }
-  &:disabled {
-    cursor: default;
-    background-color: #797e80;
-  }
+  @import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+  font-family: 'Lato', sans-serif;
+  background-color: ",
+          [Function],
+          ";
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 700px;
+  margin: 0 auto;
 ",
         ],
       },
-      "displayName": "Button",
+      "displayName": "Container",
       "foldedComponentIds": Array [],
       "render": [Function],
       "styledComponentId": "sc-bdVaJa",
-      "target": "button",
+      "target": "section",
       "toString": [Function],
       "warnTooManyClasses": [Function],
       "withComponent": [Function],

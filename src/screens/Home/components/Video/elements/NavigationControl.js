@@ -9,4 +9,6 @@ const NavigationControl = styled.section`
   flex-basis: 500px;
 `;
 
+NavigationControl.displayName = 'NavigationControlContainer';
+
 export default NavigationControl;

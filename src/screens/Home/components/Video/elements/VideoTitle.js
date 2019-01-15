@@ -6,4 +6,6 @@ const VideoTitle = styled.span`
   font-size: 1.3rem;
 `;
 
+VideoTitle.displayName = 'VideoTitle';
+
 export default VideoTitle;

@@ -11,29 +11,15 @@ exports[`Button Style Element should create a style structure for the component 
         "isStatic": true,
         "rules": Array [
           "
-  background-color: #30393c;
-  color: #fff;
-  border-radius: 5px;
-  height: 25px;
-  padding: 0 20px;
-  &:hover {
-    cursor: pointer;
-  }
-  &:focus {
-    outline: none;
-  }
-  &:disabled {
-    cursor: default;
-    background-color: #797e80;
-  }
+  width: 700px;
 ",
         ],
       },
-      "displayName": "Button",
+      "displayName": "VideoContainer",
       "foldedComponentIds": Array [],
       "render": [Function],
       "styledComponentId": "sc-bdVaJa",
-      "target": "button",
+      "target": "section",
       "toString": [Function],
       "warnTooManyClasses": [Function],
       "withComponent": [Function],

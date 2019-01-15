@@ -11,29 +11,20 @@ exports[`Button Style Element should create a style structure for the component 
         "isStatic": true,
         "rules": Array [
           "
-  background-color: #30393c;
-  color: #fff;
-  border-radius: 5px;
-  height: 25px;
-  padding: 0 20px;
-  &:hover {
-    cursor: pointer;
-  }
-  &:focus {
-    outline: none;
-  }
-  &:disabled {
-    cursor: default;
-    background-color: #797e80;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0.5rem;
+  justify-content: flex-end;
+  align-items: center;
+  flex-basis: 500px;
 ",
         ],
       },
-      "displayName": "Button",
+      "displayName": "NavigationControlContainer",
       "foldedComponentIds": Array [],
       "render": [Function],
       "styledComponentId": "sc-bdVaJa",
-      "target": "button",
+      "target": "section",
       "toString": [Function],
       "warnTooManyClasses": [Function],
       "withComponent": [Function],

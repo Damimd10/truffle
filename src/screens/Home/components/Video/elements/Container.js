@@ -13,4 +13,6 @@ const Container = styled.section`
   margin: 0 auto;
 `;
 
+Container.displayName = 'Container';
+
 export default Container;

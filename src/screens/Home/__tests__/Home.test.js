@@ -74,17 +74,6 @@ describe('Home Component', () => {
 
       it('should render a section tag with "route-section" class name', () =>
         expect(wrapper.find('CSSTransition').find('section.route-section')).toHaveLength(1));
-
-      describe.skip('Route Component', () => {
-        let route;
-
-        beforeEach(() => {
-          route = wrapper.find('section').find('Route');
-          route.prop('render')(props);
-        });
-
-        it('should render a Route component', () => expect(route).toHaveLength(1));
-      });
     });
   });
 

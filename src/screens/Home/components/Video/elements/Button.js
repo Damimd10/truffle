@@ -18,4 +18,6 @@ const Button = styled.button`
   }
 `;
 
+Button.displayName = 'Button';
+
 export default Button;

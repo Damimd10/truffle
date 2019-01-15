@@ -7,4 +7,6 @@ const Footer = styled.footer`
   align-items: center;
 `;
 
+Footer.displayName = 'Footer';
+
 export default Footer;
