@@ -53,9 +53,12 @@ export class Home extends React.Component {
   async componentDidMount() {
     this.setState({ loading: true });
     const videos = await getVideos();
-    this.setState({ videos, error: null, loading: false });
 
-    if (videos.error) this.setState({ error: videos.error });
+    if (videos.error) {
+      this.setState({ error: videos.error, loading: false });
+    } else {
+      this.setState({ videos, error: null, loading: false });
+    }
 
     if (!videos.error && !this.props.match.params.id && videos)
       this.props.history.push(`/${head(videos).url}`);
@@ -75,7 +78,7 @@ export class Home extends React.Component {
   render() {
     const { error, loading } = this.state;
 
-    if (!loading)
+    if (loading)
       return (
         <LoadingContainer>
           <HashLoader sizeUnit="px" size={150} color="#4b5960" loading />
