@@ -6,7 +6,7 @@ import { normalizeVideos } from './normalize';
 
 const getVideos = () =>
   axios
-    .get(`${URL}aas`)
+    .get(URL)
     .then(prop('data'))
     .then(normalizeVideos)
     .catch(() => ({ error: 'Sorry ☹️ !! We could not get the videos, try again 🔥' }));
