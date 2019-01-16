@@ -1,4 +1,5 @@
 import React from 'react';
+import { shape, string } from 'prop-types';
 import { Player } from 'video-react';
 import Fade from 'react-reveal/Fade';
 import HashLoader from 'react-spinners/HashLoader';
@@ -48,6 +49,21 @@ const Video = ({ video }) => {
       </Container>
     </Fade>
   );
+};
+
+Video.propTypes = {
+  video: shape({
+    data: shape({
+      title: string.isRequired,
+      description: string.isRequired,
+      asset: shape({
+        url: string.isRequired,
+        poster: string.isRequired,
+      }),
+    }).isRequired,
+    prevVideoUrl: string.isRequired,
+    nextVideoUrl: string.isRequired,
+  }).isRequired,
 };
 
 export default Video;
